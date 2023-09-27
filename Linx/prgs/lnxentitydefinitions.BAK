@@ -1,0 +1,83 @@
+************************************************
+* LINX
+*************************************************
+*
+* [ Código fonte ]
+* LNXEntityDefinitions.PRG
+*
+* [ Descrição ]
+* Definição da estrutura do banco de dados
+*
+* [ Autor ]
+* Aurino Coimbra	
+*
+*
+* 26-Setembro-2023 [ Aurino Coimbra ]
+* Criação do código
+*
+***************************************************************
+#INCLUDE "INCLUDE\LNXCONST.H"
+
+FUNCTION LNXCreateVirtualDatabase()
+
+	TRY
+		gDataBase = CREATEOBJECT("oDataBase")
+		gDataBase.Name = "LNXDADOS"
+
+		**
+		** Grupos
+		**
+		gDataBase.AddTable( "Grupo")				   				&& Cursor
+		gDataBase.Grupo.TableName = "LNXCDGRP"						&& Nome da tabela no banco de dados
+		gDataBase.Grupo.Description = "Cadastro de grupos"			&& Descrição da tabela 
+		gDataBase.Grupo.Comment = "Tabela de grupo de produtos"
+
+		gDataBase.Grupo.AddField("GrpID",				"N",  4, 0, "ID do grupo", "Código do grupo", DB_AUTO_NUMERIC )
+		gDataBase.Grupo.AddField("GrpDescricao",		"C", 40, 0, "Descrição do grupo", "Descrição do grupo" )
+		
+		**
+		** Sub-Grupo
+		**
+		gDataBase.AddTable( "SubGrupo")				   					&& Cursor
+		gDataBase.SubGrupo.TableName = "LNXCDSBG"						&& Nome da tabela no banco de dados
+		gDataBase.SubGrupo.Description = "Cadastro de sub-grupos"		&& Descrição da tabela 
+		gDataBase.SubGrupo.Comment = "Tabela de sub-grupos de produtos"
+
+		gDataBase.SubGrupo.AddField("SbgID",				"N",  4, 0, "ID do sub-grupo", "Código do grupo", DB_AUTO_NUMERIC )
+		gDataBase.SubGrupo.AddField("SbgGrpID",				"N",  4, 0, "ID do grupo", "Código do grupo" )
+		gDataBase.SubGrupo.AddField("SbgDescricao",		    "C", 40, 0, "Descrição do sub-grupo", "Descrição do sub-grupo" )
+		
+
+		**
+		** Produtos
+		**
+		gDataBase.AddTable( "Produtos")				   					&& Cursor
+		gDataBase.Produtos.TableName = "LNXCDPRD"						&& Nome da tabela no banco de dados
+		gDataBase.Produtos.Description = "Cadastro de Produtos"		&& Descrição da tabela 
+		gDataBase.Produtos.Comment = "Tabela de Produtos"
+
+		gDataBase.Produtos.AddField("PrdID",				"N",  4, 0, "ID do produto", "Código do produto", DB_AUTO_NUMERIC )
+		gDataBase.Produtos.AddField("PrdSbgID",				"N",  4, 0, "ID do sub-grupo", "Código do sub-grupo" )
+		gDataBase.Produtos.AddField("PrdGrpID",				"N",  4, 0, "ID do grupo", "Código do grupo" )
+		gDataBase.Produtos.AddField("PrdDescricao",			"C", 40, 0, "Descrição", "Descrição do produto" )
+		gDataBase.Produtos.AddField("PrdVlrCusto",			"N", 10, 2, "Valor de custo", "Valor de custo do produto" )
+		gDataBase.Produtos.AddField("PrdVlrMargem",			"N", 10, 2, "Valor da margem", "Valor da margem de lucro" )
+		gDataBase.Produtos.AddField("PrdVlrVenda",			"N", 10, 2, "Valor de venda", "Valor de venda do produto" )
+		gDataBase.Produtos.AddField("PrdVlrDolar",			"N", 10, 2, "Valor em dolar", "Valor em dolar do produto" )
+
+		
+	CATCH TO oErr
+
+		MESSAGEBOX("Não foi possível criar o banco de dados, erro : " + oErr.Message, 0 + 48, "Atenção" )
+
+		RETURN .F.
+		
+	ENDTRY
+	
+	*
+	** Retorna verdadeiro se o banco de dados virtual for criado com sucesso
+	*
+	RETURN .T.
+	
+ENDFUNC
+

@@ -1,0 +1,25 @@
+************************************************
+* LINX
+*************************************************
+*
+* [ Código fonte ]
+* LNXExternal.PRG
+*
+* [ Descrição ]
+* Definição da estrutura do banco de dados
+*
+* [ Autor ]
+* Aurino Coimbra	
+*
+*
+* 26-Setembro-2023 [ Aurino Coimbra ]
+* Criação do código
+*
+***************************************************************
+
+EXTERNAL FILE user_32.png
+EXTERNAL FILE historic_32.png
+EXTERNAL FILE buying_32.png
+EXTERNAL FILE tables_32.png
+EXTERNAL FILE finance_32.png
+EXTERNAL FILE logo.png
